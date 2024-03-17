@@ -7,7 +7,7 @@ public class App {
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            throw new RuntimeException("Please provide input for the model as an argument");
+            throw new IllegalArgumentException("Please provide input for the model as an argument");
         }
 
     ChatLanguageModel model = OpenAiChatModel.builder()
