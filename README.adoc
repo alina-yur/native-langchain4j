@@ -1,34 +1,38 @@
-# Native LangChain4J example
+= Native LangChain4J example
+:toc: auto
 
-This example is based on a [LangChain4j tutorial](https://github.com/langchain4j/langchain4j-examples). It produces a GraalVM native version of a chatbot leveraging LangChain4j and the OPENAI API.
+This example is based on a link:https://github.com/langchain4j/langchain4j-examples[LangChain4j tutorial]. It produces a GraalVM native version of a chatbot leveraging LangChain4j and the OPENAI API.
 
-### Prerequisites
+
+
+== Prerequisites
 
 * GraalVM (`sdk install java 21.0.2-graal`)
 * Maven
 * (optional) OPENAI API key
 
-Note that you need to interact with the OpenAI API you need to either get and store an OpenAI API key in an environment variable `OPENAI_API_KEY`, or replace the value with `demo`.
+NOTE: To interact with the OpenAI API, you need to either get and store an OPENAI API key in an environment variable `OPENAI_API_KEY`, or replace the value with `demo`.
 
+== Package and run on the JVM
 
-## Package and run on the JVM
-
-```shell
+[source,shell]
+----
 mvn package
-```
+----
 
-## Interact with the bot
+== Interact with the bot
 
-You now chat with your bot. You can execute the jar directly:
+You can now chat with your bot. You can execute the jar directly:
 
-```shell
-$ java -jar ./target/native-langchchain4j-1.0-jar-with-dependencies.jar "your prompt"
-```
+[source,shell]
+----
+$ java -jar ./target/native-langchain4j-1.0-jar-with-dependencies.jar "your prompt"
+----
 
+Or use the script from the repo for conciseness:
 
- or use the script from the repo for conciseness:
-
-```shell
+[source,shell]
+----
 $ ./run.sh "what is Java?"
 
 "Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let application developers write once, run anywhere (WORA), meaning that compiled Java code can run on all platforms that support Java without the need for recompilation. Java is widely used for developing web applications, software, and mobile applications."
@@ -40,29 +44,30 @@ $ ./run.sh "what is GraalVM?"
 $ ./run.sh "what is love?"
 
 "Love is a complex set of emotions, behaviors, and beliefs associated with strong feelings of affection, protectiveness, warmth, and respect for another person. It can also be described as a profound, passionate affection for another person and can emerge in various forms, such as familial love, romantic love, platonic love, and self-love. Love can also be understood as a function to keep human beings together against threats and to facilitate the continuation of the species."
+----
 
-```
-
-## Package and run as Native Image
+== Package and run as Native Image
 
 This demo works out of the box, but to get rid of a warning from a 4th party dependency, build it with config files (come with the repo):
 
-```shell
-native-image  -jar ./target/native-langchchain4j-1.0-jar-with-dependencies.jar -o native-langchain4j -H:ConfigurationFileDirectories=/Users/ayurenko/native-langchain4j/native-langchain4j/resources/META-INF/native-image
-```
+[source,shell]
+----
+native-image -jar ./target/native-langchain4j-1.0-jar-with-dependencies.jar -o native-langchain4j -H:ConfigurationFileDirectories=/Users/ayurenko/native-langchain4j/native-langchain4j/resources/META-INF/native-image
+----
 
 This produces a nice self-contained executable version of the app:
 
-```shell
+[source,shell]
+----
 $ eza -l
-.rwxr-xr-x  44M ayurenko 16 Mar 16:45 native-langchain4j
-```
+.rwxr-xr-x 44M ayurenko 16 Mar 16:45 native-langchain4j
+----
 
 You can now chat with the native app:
 
-```shell
+[source,shell]
+----
 $ ./native-langchain4j "what's the answer to life, the universe, and everything?"
 
 42, according to "The Hitchhiker's Guide to the Galaxy" by Douglas Adams
-
-```
+----
