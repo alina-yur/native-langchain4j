@@ -1,6 +1,8 @@
 = Native LangChain4J example
 :toc: auto
 
+
+== Overview
 This example is based on a link:https://github.com/langchain4j/langchain4j-examples[LangChain4j tutorial]. It produces a GraalVM native version of a chatbot leveraging LangChain4j and the OPENAI API.
 
 
