@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>native-langchchain4j</artifactId>
+    <artifactId>native-langchain4j</artifactId>
     <version>1.0</version>
 
     <name>native-langhchain4j</name>
