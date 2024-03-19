@@ -50,11 +50,9 @@ $ ./run.sh "what is love?"
 
 == Package and run as Native Image
 
-This demo works out of the box, but to get rid of a warning from a 4th party dependency, build it with config files (come with the repo):
-
 [source,shell]
 ----
-native-image -jar ./target/native-langchain4j-1.0-jar-with-dependencies.jar -o native-langchain4j -H:ConfigurationFileDirectories=./resources/META-INF/native-image -H:+AllowDeprecatedBuilderClassesOnImageClasspath
+native-image -jar ./target/native-langchain4j-1.0-jar-with-dependencies.jar -o native-langchain4j
 ----
 Alternatively, you can run the build script: `./build-native.sh`.
 
