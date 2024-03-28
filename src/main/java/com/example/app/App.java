@@ -10,14 +10,14 @@ public class App {
             throw new IllegalArgumentException("Please provide input for the model as an argument");
         }
 
-    ChatLanguageModel model = OpenAiChatModel.builder()
-        .apiKey(System.getenv("OPENAI_API_KEY")) // or replace with "demo" for demo purposes
-        .modelName("gpt-4")
-        .build();
+        ChatLanguageModel model = OpenAiChatModel.builder()
+                .apiKey(System.getenv("OPENAI_API_KEY")) // or replace with "demo" for demo purposes
+                .modelName("gpt-3.5-turbo")
+                .build();
 
-    String answer = model.generate(args[0]);
+        String answer = model.generate(args[0]);
 
-    System.out.println(answer);
+        System.out.println(answer);
 
     }
 
