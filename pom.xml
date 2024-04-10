@@ -68,7 +68,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.2.0</version> <!-- Ensure you are using the correct version -->
+                <version>3.2.0</version>
                 <configuration>
                     <executable>java</executable>
                     <commandlineArgs>-jar
