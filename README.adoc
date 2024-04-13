@@ -35,15 +35,15 @@ Or use the script from the repo for conciseness:
 
 [source,shell]
 ----
-$ ./run.sh "what is Java?"
+$ ./run-jvm.sh "what is Java?"
 
 "Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let application developers write once, run anywhere (WORA), meaning that compiled Java code can run on all platforms that support Java without the need for recompilation. Java is widely used for developing web applications, software, and mobile applications."
 
-$ ./run.sh "what is GraalVM?"
+$ ./run-jvm.sh "what is GraalVM?"
 
 "GraalVM is a high-performance runtime that provides significant improvements in application performance and efficiency. It is designed for applications written in JavaScript, Python, Ruby, R, JVM-based languages like Java, Scala, Groovy, Kotlin, and LLVM-based languages such as C and C++. GraalVM offers capabilities like ahead-of-time compilation and the ability to compile to a native executable to improve startup time, reduce memory footprint, and enable distribution of pre-compiled executables. It also supports interoperability between different programming languages, allowing you to write polyglot applications."
 
-$ ./run.sh "what is love?"
+$ ./run-jvm.sh "what is love?"
 
 "Love is a complex set of emotions, behaviors, and beliefs associated with strong feelings of affection, protectiveness, warmth, and respect for another person. It can also be described as a profound, passionate affection for another person and can emerge in various forms, such as familial love, romantic love, platonic love, and self-love. Love can also be understood as a function to keep human beings together against threats and to facilitate the continuation of the species."
 ----
