@@ -3,7 +3,7 @@
 
 
 == Overview
-This example is based on a link:https://github.com/langchain4j/langchain4j-examples[LangChain4j tutorial]. It produces a GraalVM native version of a chatbot leveraging LangChain4j and the OPENAI API.
+This example is based on a link:https://github.com/langchain4j/langchain4j-examples[LangChain4j tutorial]. It produces a GraalVM native version of a chatbot leveraging LangChain4j and the OpenAI API.
 
 
 
@@ -24,14 +24,14 @@ mvn package
 
 == Interact with the bot
 
-You can now chat with your bot. You can execute the jar directly:
+You can now chat with the bot. You can execute the jar directly:
 
 [source,shell]
 ----
 $ java -jar ./target/native-langchain4j-1.0-jar-with-dependencies.jar "your prompt"
 ----
 
-Or use the script from the repo for conciseness:
+Or use the script from the repo to run:
 
 [source,shell]
 ----
@@ -58,7 +58,7 @@ native-image -jar ./target/native-langchain4j-1.0-jar-with-dependencies.jar -o n
 ----
 Alternatively, you can run the build script: `./build-native.sh`.
 
-This will produce a nice self-contained executable version of the app:
+This will produce a nice self-contained native version of the app:
 
 [source,shell]
 ----
