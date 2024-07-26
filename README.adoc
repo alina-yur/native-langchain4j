@@ -1,5 +1,4 @@
 = Native LangChain4J example
-:toc: auto
 
 
 == Overview
