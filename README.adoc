@@ -8,7 +8,7 @@ This example is based on a link:https://github.com/langchain4j/langchain4j-examp
 
 == Prerequisites
 
-* GraalVM (`sdk install java 21.0.2-graal`)
+* GraalVM (`sdk install java 22.0.2-graal`)
 * Maven
 * (optional) OPENAI API key
 
