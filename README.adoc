@@ -1,75 +1,60 @@
-= Native LangChain4J example
+= Native LangChain4j Example
 
-
-== Overview
-This example is based on a link:https://github.com/langchain4j/langchain4j-examples[LangChain4j tutorial]. It produces a GraalVM native version of a chatbot leveraging LangChain4j and the OpenAI API. It also uses `gpt-4o`, which is supposed to produce quick and accurate results, but you can use other models as well.
-
-
+This demo is a small GraalVM Native Image command-line assistant built with LangChain4j 1.19.0. It demonstrates the Agentic API, streamed responses, per-session chat memory, strict tool calling, and a read-only local runtime-information tool.
 
 == Prerequisites
 
-* GraalVM (`sdk install java 22.0.2-graal`)
-* Maven
-* (optional) OPENAI API key
+* GraalVM for JDK 25, including `native-image`
+* Maven 3.9+
+* An OpenAI API key for live requests
 
-NOTE: To interact with the OpenAI API, you need to either get and store an OPENAI API key in an environment variable `OPENAI_API_KEY`, or replace the value with `demo`.
+The model defaults to `gpt-5.6-terra`. Set `OPENAI_MODEL` to use another compatible model. `OPENAI_BASE_URL` can point to an OpenAI-compatible endpoint, and `OPENAI_REASONING_EFFORT` can override the default `none` setting.
 
-== Package and run on the JVM
+== Build and run on the JVM
 
 [source,shell]
 ----
 mvn package
+export OPENAI_API_KEY=your-key
+./run-jvm.sh "What is GraalVM Native Image?"
 ----
 
-== Interact with the bot
-
-You can now chat with the bot. You can execute the jar directly:
+With no prompt, the application starts an interactive session:
 
 [source,shell]
 ----
-$ java -jar ./target/native-langchain4j-1.0-jar-with-dependencies.jar "your prompt"
+./run-jvm.sh
+You> What runtime am I using?
+You> /reset
+You> /exit
 ----
 
-Or use the script from the repo to run:
+The assistant uses the `system_info` tool for local runtime questions. The tool exposes only runtime, operating-system, architecture, and processor-count information.
+
+== Build and run as a native executable
 
 [source,shell]
 ----
-$ ./run-jvm.sh "what is Java?"
-
-"Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let application developers write once, run anywhere (WORA), meaning that compiled Java code can run on all platforms that support Java without the need for recompilation. Java is widely used for developing web applications, software, and mobile applications."
-
-$ ./run-jvm.sh "what is GraalVM?"
-
-"GraalVM is a high-performance runtime that provides significant improvements in application performance and efficiency. It is designed for applications written in JavaScript, Python, Ruby, R, JVM-based languages like Java, Scala, Groovy, Kotlin, and LLVM-based languages such as C and C++. GraalVM offers capabilities like ahead-of-time compilation and the ability to compile to a native executable to improve startup time, reduce memory footprint, and enable distribution of pre-compiled executables. It also supports interoperability between different programming languages, allowing you to write polyglot applications."
-
-$ ./run-jvm.sh "what is love?"
-
-"Love is a complex set of emotions, behaviors, and beliefs associated with strong feelings of affection, protectiveness, warmth, and respect for another person. It can also be described as a profound, passionate affection for another person and can emerge in various forms, such as familial love, romantic love, platonic love, and self-love. Love can also be understood as a function to keep human beings together against threats and to facilitate the continuation of the species."
+./build-native.sh
+./target/native-langchain4j "Explain ahead-of-time compilation in one paragraph"
 ----
 
-== Package and run as Native Image
+The build uses the GraalVM Native Build Tools Maven plugin and the application’s minimal reachability metadata. It does not rely on a fallback image or deprecated builder-class options.
 
-This demo works out of the box, but to get rid of a warning from a 4th party dependency, build it with config files (come with the repo):
+To validate the native executable without an API key, run the offline mock SSE/tool-call test after compiling the test classes:
 
 [source,shell]
 ----
-native-image -jar ./target/native-langchain4j-1.0-jar-with-dependencies.jar -o native-langchain4j -H:+AllowDeprecatedBuilderClassesOnImageClasspath
-----
-Alternatively, you can run the build script: `./build-native.sh`.
-
-This will produce a nice self-contained native version of the app:
-
-[source,shell]
-----
-$ eza -l
-.rwxr-xr-x 44M ayurenko 16 Mar 16:45 native-langchain4j
+mvn test
+./native-smoke.sh
 ----
 
-You can now chat with the native app:
+== Configuration
 
-[source,shell]
-----
-$ ./native-langchain4j "what's the answer to life, the universe, and everything?"
+`OPENAI_API_KEY` is required for live requests. The optional variables are:
 
-42, according to "The Hitchhiker's Guide to the Galaxy" by Douglas Adams
-----
+* `OPENAI_MODEL` — model name; defaults to `gpt-5.6-terra`.
+* `OPENAI_BASE_URL` — endpoint override for compatible services or local tests.
+* `OPENAI_REASONING_EFFORT` — reasoning setting; GPT-5.6 tool calls use `none` by default with Chat Completions.
+
+The Agentic module is experimental in LangChain4j and may change in future releases. The demo intentionally keeps the agent single-process and single-agent so its native-image behavior remains easy to inspect.

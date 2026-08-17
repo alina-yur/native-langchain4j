@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: JVM and Native Image CI
 
 on:
   push:
@@ -7,17 +7,32 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
+  verify-jvm:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up GraalVM
         uses: graalvm/setup-graalvm@v1
         with:
-          java-version: "23"
+          java-version: "25"
           distribution: "graalvm"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          # Add any other specific options you need for GraalVM here
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn -B verify --file pom.xml
+
+  verify-native:
+    runs-on: ubuntu-latest
+    needs: verify-jvm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: "25"
+          distribution: "graalvm"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build native executable
+        run: mvn -B -Pnative -DskipTests package --file pom.xml
+      - name: Run offline native smoke test
+        run: ./native-smoke.sh

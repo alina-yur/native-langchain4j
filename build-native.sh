@@ -1,2 +1,4 @@
-#!/bin/bash
-native-image -jar ./target/native-langchain4j-1.0-jar-with-dependencies.jar -o ./target/native-langchain4j -H:ConfigurationFileDirectories=./resources/META-INF/native-image -H:+AllowDeprecatedBuilderClassesOnImageClasspath
+#!/usr/bin/env bash
+set -euo pipefail
+
+mvn -Pnative -DskipTests package

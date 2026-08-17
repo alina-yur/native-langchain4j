@@ -11,6 +11,8 @@ default.iprof
 .DS_Store
 demo-monitored.hprof
 native-langchain4j
+!src/main/resources/META-INF/native-image/com.example/native-langchain4j/
+!src/main/resources/META-INF/native-image/com.example/native-langchain4j/**
 
 
 

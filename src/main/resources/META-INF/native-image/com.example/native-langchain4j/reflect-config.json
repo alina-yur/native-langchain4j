@@ -1,0 +1,11 @@
+[
+  {
+    "name": "com.example.app.AssistantAgent",
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "com.example.app.SystemInfoTools",
+    "allDeclaredMethods": true
+  }
+]
